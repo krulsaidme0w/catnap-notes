@@ -1,14 +1,28 @@
-type Props = {};
+import { AppBar, Toolbar, Typography, Button, createTheme, ThemeProvider } from '@mui/material';
 
-function PageHeader(props: Props): JSX.Element {
+const theme = createTheme({
+	typography: {
+		fontFamily: 'Source Code Pro, monospace',
+	},
+	palette: {
+		background: {
+			paper: '#000',
+		},
+	},
+});
+
+function PageHeader(): JSX.Element {
 	return (
-		<div>
-			<nav className="container-fluid">
-				<ul>
-				<li><a href="./" className="contrast"><strong>qNote</strong></a></li>
-				</ul>
-			</nav>
-		</div>
+		<ThemeProvider theme={theme}>
+		  <AppBar position='static' sx={{ bgcolor: 'background.paper' }}>
+			<Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+			  	<Typography variant='h5'>
+					qNote
+			  	</Typography>
+			  	<Button color='inherit'>Add Note</Button>
+			</Toolbar>
+		  </AppBar>
+		</ThemeProvider>
 	);
 }
 
