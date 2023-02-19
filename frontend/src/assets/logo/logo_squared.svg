@@ -1,0 +1,29 @@
+<svg width="700" height="700" viewBox="0 0 700 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="448" y="117.456" width="112" height="236" transform="rotate(-9.48483 448 117.456)" fill="#BEBEBE"/>
+<rect x="475" y="227" width="70" height="59" fill="#BEBEBE"/>
+<rect x="621" y="447" width="33" height="25" fill="#BEBEBE"/>
+<rect x="603" y="372" width="36" height="86" fill="#BEBEBE"/>
+<rect x="342.24" y="480.719" width="205.446" height="31.7389" transform="rotate(49.8756 342.24 480.719)" fill="#BEBEBE"/>
+<rect x="345" y="533" width="51" height="121" fill="#BEBEBE"/>
+<rect x="254" y="472" width="96" height="166" fill="#BEBEBE"/>
+<rect x="61" y="220.588" width="236.31" height="221.088" transform="rotate(-45 61 220.588)" fill="#919191"/>
+<rect x="249" y="239" width="77" height="58" fill="#BEBEBE"/>
+<rect x="388" y="587" width="53" height="57" fill="#BEBEBE"/>
+<rect x="250" y="460" width="27" height="51" fill="#BEBEBE"/>
+<rect x="568.181" y="297" width="114.224" height="89.0715" transform="rotate(40.783 568.181 297)" fill="#BEBEBE"/>
+<rect x="496" y="225" width="154" height="140" fill="#BEBEBE"/>
+<rect x="73" y="234" width="188" height="410" fill="#BEBEBE"/>
+<rect x="560" y="411.642" width="44" height="76" transform="rotate(-47.8912 560 411.642)" fill="#BEBEBE"/>
+<rect x="232" y="57" width="418" height="194" fill="#BEBEBE"/>
+<path d="M650.325 50.65V650.65H50.325" stroke="black" stroke-width="25"/>
+<path d="M68 221.322L221 68.3223" stroke="black" stroke-width="25" stroke-linecap="square"/>
+<line x1="61" y1="228.5" x2="238" y2="228.5" stroke="black" stroke-width="25"/>
+<line x1="225.5" y1="228" x2="225.5" y2="67" stroke="black" stroke-width="25"/>
+<line x1="662" y1="63.15" x2="221" y2="63.15" stroke="black" stroke-width="25"/>
+<line x1="62.825" y1="221.325" x2="62.825" y2="658.325" stroke="black" stroke-width="25"/>
+<path d="M264.5 316C262.938 318.5 258.986 325.011 259.5 336.5C259.996 347.577 261.476 355.866 263.235 362C266.796 374.416 271.5 378 271.5 378C271.5 378 258.758 388.259 255 397.5C252.894 402.68 252 411.5 252 411.5C250 429.5 256.5 440.5 256.5 440.5C268 466 281.552 468.354 298.5 472.087C315.031 475.728 332.719 476.228 343.5 474.5L371 507L495 650H650.5V495.5L525 381.5L487.5 345.5V332.5C487.5 321.761 488 316.5 487.5 305C487 293.5 482.5 285.5 482.5 285.5C482.5 285.5 478.311 275.672 474 270.5C468.649 264.08 464.765 260.591 457 257.5C449.964 254.7 445.303 254.812 437.812 254.993L437.5 255C424.71 255.307 406 264 406 264C406 264 394.246 253.423 385.5 248.5C379.177 244.94 374 242.5 368.5 241C363 239.5 357.5 240 353.5 241C351.351 241.537 349.314 242.5 346 244.5C342.686 246.5 340.12 249.88 338.5 251.5C335 255 334 257.5 330 266C326 274.5 322 294.5 322 294.5C322 294.5 304.5 294 300 294.5C295.5 295 284.5 298.5 280.5 301C278.217 302.427 271.83 304.273 264.5 316Z" fill="white" stroke="black" stroke-width="25"/>
+<line x1="352.661" y1="236.996" x2="350.996" y2="230.339" stroke="black" stroke-width="22" stroke-linecap="round"/>
+<line x1="458.331" y1="258.513" x2="463.513" y2="246.669" stroke="black" stroke-width="22" stroke-linecap="round"/>
+<line x1="268.076" y1="313.389" x2="254.389" y2="305.924" stroke="black" stroke-width="22" stroke-linecap="round"/>
+<line x1="250.61" y1="415.578" x2="235.578" y2="416.39" stroke="black" stroke-width="22" stroke-linecap="round"/>
+</svg>

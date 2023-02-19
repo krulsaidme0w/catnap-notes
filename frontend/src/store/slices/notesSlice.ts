@@ -1,16 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Note } from "../../types/note";
+import { testState } from "../testState/testState";
 import { initialState } from "../initialState/initialState";
+import { Note } from "../../types/note";
 
 export const noteStateSlice = createSlice({
 	name: "Notes",
-	initialState: initialState,
+	initialState: testState,
 	reducers: {
         create(state, action: PayloadAction<string>) {
 			const newNote: Note = {
 				id: new Date().toISOString(),
-				title: state.noteTitle.trim(),
-				text: state.noteText
+				title: "",
+				text: "",
 			};
             state.savedNotes.unshift(newNote);
 		},

@@ -1,28 +1,22 @@
-import { AppBar, Toolbar, Typography, Button, createTheme, ThemeProvider } from '@mui/material';
-
-const theme = createTheme({
-	typography: {
-		fontFamily: 'Source Code Pro, monospace',
-	},
-	palette: {
-		background: {
-			paper: '#000',
-		},
-	},
-});
+import "./PageHeader.scss"
 
 function PageHeader(): JSX.Element {
+	const buttonClass = ".create-note-btn"
+	const buttonLabel = "add new note"
+	const pageTitle = "cat nap"
+
 	return (
-		<ThemeProvider theme={theme}>
-		  <AppBar position='static' sx={{ bgcolor: 'background.paper' }}>
-			<Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-			  	<Typography variant='h5'>
-					qNote
-			  	</Typography>
-			  	<Button color='inherit'>Add Note</Button>
-			</Toolbar>
-		  </AppBar>
-		</ThemeProvider>
+		<header>
+			<h1 className={`page-title`}>
+				{pageTitle}
+			</h1>
+			<button 
+				className={`comical-shadow-animated ${buttonClass}`} >
+				<span>
+					{buttonLabel}
+				</span>
+			</button>
+		</header>
 	);
 }
 

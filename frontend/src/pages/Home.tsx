@@ -1,12 +1,14 @@
-import PageHeader from "../components/UIComponents/PageHeader/PageHeader";
-import PageFooter from "../components/UIComponents/PageFooter/PageFooter";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
+import BaseComponent from "../components/BaseComponent/BaseComponent";
 
 function HomePage(): JSX.Element {
+	const notes = useSelector((state: RootState) => state.noteReducer.savedNotes);
+
 	return (
-		<div>
-            <PageHeader/>
-			<PageFooter/>
-        </div>
+		<BaseComponent
+			notes={notes}
+		/>
 	)
 }
 
