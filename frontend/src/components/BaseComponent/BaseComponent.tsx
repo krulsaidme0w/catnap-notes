@@ -17,8 +17,9 @@ function BaseComponent(props: Props): JSX.Element {
 		notes,
 	} = props;
 
-	const notesAvailable = notes.length != 0
+	const notesAvailable = notes.length !== 0
 	const noNotesInfo = "no notes"
+	const maxNoteTitleLength = 12
 
 	return (
 		<Fragment>
@@ -31,6 +32,7 @@ function BaseComponent(props: Props): JSX.Element {
 							id={note.id}
 							title={note.title}
 							text={note.text}
+							maxNoteTitleLength={maxNoteTitleLength}
 						/>
 					))}
 				</div>

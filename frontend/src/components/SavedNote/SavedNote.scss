@@ -37,11 +37,30 @@
 		margin-bottom: 8px;
 	}
 
-	.title,
+		  
+	.delete_button {
+		position: absolute;
+		right: 1rem;
+		top: 1rem;
+		display: none;
+		background: none;
+		border: none;
+		
+		svg {
+			fill: red;
+			height: 1rem;
+		}
+	}
+	  
+	&:hover .delete_button {
+		display: inline-block;
+	}
+
+	.title
 	.text {
 		line-height: 1.4;
 	}
-
+	
 	&.sacramento,
 	&.hi-melody {
 		.title {

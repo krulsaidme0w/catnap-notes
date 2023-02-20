@@ -1,7 +1,7 @@
 import "./PageHeader.scss"
 
 function PageHeader(): JSX.Element {
-	const buttonClass = ".create-note-btn"
+	const buttonClass = "create-note-btn"
 	const buttonLabel = "add new note"
 	const pageTitle = "cat nap"
 
