@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { RootState, useThunkDispatch } from "../../store/store";
+import { useThunkDispatch } from "../../store/store";
 import { deleteNoteAction } from "../../store/action-creators/action-creators";
 
 import "./SavedNote.scss";
@@ -17,9 +16,6 @@ const longTitleEndingSymbol = "..."
 function format(title: string, maxLen: number): string {
 	if (title.length > maxLen) {
 		title = title.slice(0, maxLen).trim().concat(longTitleEndingSymbol);
-	}
-	else {
-		title = title;
 	}
 
 	return title;

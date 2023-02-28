@@ -1,21 +1,39 @@
+import { noteActions } from "../../../store/store";
+
+import { useDispatch } from "react-redux";
+
 import "./PageHeader.scss"
 
-function PageHeader(): JSX.Element {
-	const buttonClass = "create-note-btn"
-	const buttonLabel = "add new note"
-	const pageTitle = "cat nap"
+type Props = {
+	buttonLabel: string
+	pageTitle: string
+	buttonAvailable: boolean
+};
+
+function PageHeader(props: Props): JSX.Element {
+	const {
+		buttonLabel,
+		pageTitle,
+		buttonAvailable,
+	} = props;
+	
+	const dispatch = useDispatch();
+	const buttonAction = () => {
+		dispatch(noteActions.noteDialogIsVisible(true));
+	}
 
 	return (
 		<header>
 			<h1 className={`page-title`}>
 				{pageTitle}
 			</h1>
-			<button 
-				className={`comical-shadow-animated ${buttonClass}`} >
+			{buttonAvailable && <button
+				onClick={buttonAction}
+				className={`comical-shadow-animated .create-note-btn`} >
 				<span>
 					{buttonLabel}
 				</span>
-			</button>
+			</button>}
 		</header>
 	);
 }

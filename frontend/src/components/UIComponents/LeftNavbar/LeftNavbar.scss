@@ -46,7 +46,7 @@
 			height: 3rem;
 
 			&.heart-outline {
-				transform: scale(1.1);
+				transform: scale(1.2);
 			}
 
 			&.trash-can {
@@ -57,13 +57,9 @@
 }
 
 .focus-home::before {
-	transform: translate(-50%, 0.4rem);
+	transform: translate(-50%, 0.55rem);
 }
 
-.focus-favourites::before {
-	transform: translate(-50%, 7.2rem);
-}
-
-.focus-trash::before {
-	transform: translate(-50%, 14.4rem);
+.focus-info::before {
+	transform: translate(-50%, 7.25rem);
 }

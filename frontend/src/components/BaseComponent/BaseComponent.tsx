@@ -1,7 +1,14 @@
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useThunkDispatch } from "../../store/store";
+
+import { RootState } from "../../store/store";
+
+import { exitNoteDialog } from "../../store/action-creators/action-creators";
 
 import PageHeader from "../UIComponents/PageHeader/PageHeader";
 import SavedNote from "../SavedNote/SavedNote";
+import NoteDialog from "../NoteDialog/NoteDialog";
 
 import { Note } from "../../types/note";
 
@@ -9,21 +16,67 @@ import "./BaseComponent.scss";
 
 
 type Props = {
+	activePage: string
 	notes: Note[]
+	notesAvailable: boolean
+	buttonLabel: string
+	pageTitle: string
+	buttonAvailable: boolean
 };
 
 function BaseComponent(props: Props): JSX.Element {
 	const {
+		activePage,
 		notes,
+		notesAvailable,
+		buttonLabel,
+		pageTitle,
+		buttonAvailable,
 	} = props;
 
-	const notesAvailable = notes.length !== 0
+	const {
+		isNoteDialogVisible,
+	} = useSelector((state: RootState) => state.noteReducer);
+
+	const thunkDispatch = useThunkDispatch();
+
 	const noNotesInfo = "no notes"
 	const maxNoteTitleLength = 12
 
+	const [overlayClasses, setOverlayClasses] = useState("");
+	const [blurOverlayClasses, setBlurOverlayClasses] = useState("");
+
+	const closeNoteDialog = () => {
+		thunkDispatch(exitNoteDialog());
+	}
+
+	useEffect(() => {
+		if (isNoteDialogVisible) {
+			setOverlayClasses("overlay-visible");
+		} else {
+			setOverlayClasses("");
+		}
+	}, [isNoteDialogVisible]);
+
+	useEffect(() => {
+		if (isNoteDialogVisible) {
+			setBlurOverlayClasses(`blur-visible`);				
+		} else {
+			setBlurOverlayClasses("");
+		}
+	}, [isNoteDialogVisible]);
+
 	return (
 		<Fragment>
-			<PageHeader/>
+			<PageHeader pageTitle={pageTitle}
+				buttonLabel={buttonLabel}
+				buttonAvailable={buttonAvailable}
+			/>
+
+			<div className={`overlay ${overlayClasses}`} onClick={closeNoteDialog}></div>
+			<div className={`background-blur ${blurOverlayClasses}`}></div>
+			
+			<NoteDialog activePage={activePage}/>
 
 			{notesAvailable && (
 				<div className="notes">
@@ -38,7 +91,7 @@ function BaseComponent(props: Props): JSX.Element {
 				</div>
 			)}
 
-			{!notesAvailable && (
+			{notes.length === 0 && notesAvailable && (
 				<div className="notes-unavailable">
 					<span>
 						<h2>{noNotesInfo}</h2>

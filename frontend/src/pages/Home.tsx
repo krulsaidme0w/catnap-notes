@@ -7,7 +7,12 @@ function HomePage(): JSX.Element {
 
 	return (
 		<BaseComponent
+			activePage="home"
 			notes={notes}
+			notesAvailable={true}
+			buttonLabel={"add note"}
+			pageTitle={"catnap"}
+			buttonAvailable={true}
 		/>
 	)
 }
