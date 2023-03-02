@@ -45,16 +45,10 @@ function NoteDialog(props: Props): JSX.Element {
 		<form className={`note-dialog ${noteDialogClasses}`}>
 			<div className="action-buttons">
 				<button onClick={closeNoteDialog} className="close-button"><ArrowLeft/></button>
+				<button onClick={closeNoteDialog} className="save-button"><ArrowLeft/></button>
 			</div>
 
-			<NoteContent activePage={activePage} />
-
-			{/* <NoteOptions activePage={activePage}
-				visibleElements={visibleElements}
-				onShowDeleteConfirm={showDeleteConfirm}
-				onSyncDeleteAmount={syncDeleteAmount}
-				onUpdateElementsVisibility={updateElementsVisibility}
-			/> */}
+			<NoteContent />
 		</form>
 	);
 }

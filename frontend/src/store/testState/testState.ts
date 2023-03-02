@@ -17,4 +17,9 @@ export const testState: InitialState = {
 	savedNotes: Array.from({ length: 10 }, generateRandomNote),
   currentID: "",
   isNoteDialogVisible: false,
+  noteId: "",
+  noteTitle: "",
+	noteText: "",
+	isNoteEmpty: true,
+  isNoteNew: true,
 };

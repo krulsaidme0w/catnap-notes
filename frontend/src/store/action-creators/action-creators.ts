@@ -12,14 +12,18 @@ type AppThunk<ReturnType = void> = ThunkAction<
 
 const {
 	createNote,
+	deleteEmptyNote,
+	editNoteContent,
+	updateNoteContent,
 	deleteNote,
 	noteDialogIsVisible,
 	resetNoteContent,
+	noteIsNew,
 } = noteActions;
 
-export function createNoteAction(note: Note): AppThunk {
+export function createNoteAction(): AppThunk {
 	return (dispatch) => {
-		dispatch(createNote(note))
+		dispatch(createNote())
 	}
 }
 
@@ -30,7 +34,24 @@ export function deleteNoteAction(id: string): AppThunk {
 }
 
 export function exitNoteDialog(): AppThunk {
-	return (dispatch) => {
+	return (dispatch, getState) => {
+		if (getState().noteReducer.isNoteNew && !getState().noteReducer.isNoteEmpty) {
+			dispatch(createNote());
+		} else if(!getState().noteReducer.isNoteNew && !getState().noteReducer.isNoteEmpty) {
+			dispatch(updateNoteContent());
+		} else if(!getState().noteReducer.isNoteNew && getState().noteReducer.isNoteEmpty) {
+			dispatch(deleteEmptyNote());
+		}
+
+		dispatch(resetNoteContent());
 		dispatch(noteDialogIsVisible(false));
+	}
+}
+
+export function editNote(noteContent: Note): AppThunk {
+	return (dispatch) => {
+		dispatch(editNoteContent(noteContent));
+		dispatch(noteDialogIsVisible(true));
+		dispatch(noteIsNew(false));
 	}
 }

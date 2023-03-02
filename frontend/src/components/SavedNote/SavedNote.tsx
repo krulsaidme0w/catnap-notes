@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useThunkDispatch } from "../../store/store";
 import { deleteNoteAction } from "../../store/action-creators/action-creators";
+import { editNote } from "../../store/action-creators/action-creators";
 
 import "./SavedNote.scss";
 import Delete from "../../assets/icons/Delete"
@@ -31,14 +32,24 @@ function SavedNote(props: Props): JSX.Element {
 
 	const thunkDispatch = useThunkDispatch();
 	const deleteNote = (e: React.MouseEvent) => {
+		e.stopPropagation(); 
 		e.preventDefault();
 		thunkDispatch(deleteNoteAction(id));
+	}
+
+	const editNoteContent = () => {
+		thunkDispatch(editNote({
+			id: id,
+			title: title,
+			text: text,
+		}));
 	}
 
 	const [showButton, setShowButton] = useState(false);
 	return (
 		<div 
 		className={`note`}
+		onClick={editNoteContent}
 		onMouseEnter={() => setShowButton(true)}
       	onMouseLeave={() => setShowButton(false)}>
 			{format(title, maxNoteTitleLength) && (

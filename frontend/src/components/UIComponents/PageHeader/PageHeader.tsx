@@ -19,6 +19,7 @@ function PageHeader(props: Props): JSX.Element {
 	
 	const dispatch = useDispatch();
 	const buttonAction = () => {
+		dispatch(noteActions.noteIsNew(true));
 		dispatch(noteActions.noteDialogIsVisible(true));
 	}
 
