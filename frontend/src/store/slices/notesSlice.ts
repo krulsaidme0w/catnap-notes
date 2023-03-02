@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { testState } from "../testState/testState";
+import { initialState } from "../initialState/initialState";
 import { Note } from "../../types/note";
 
 export const noteStateSlice = createSlice({
 	name: "Notes",
-	initialState: testState,
+	initialState: initialState,
 	reducers: {
         createNote(state) {
 			const newNote: Note = {
