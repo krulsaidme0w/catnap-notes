@@ -1,5 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { Navigate } from 'react-router-dom';
+
 import { useThunkDispatch } from "../../store/store";
 
 import { RootState } from "../../store/store";
@@ -26,6 +28,11 @@ type Props = {
 
 function BaseComponent(props: Props): JSX.Element {
 	const {
+		isNoteDialogVisible,
+		authed,
+	} = useSelector((state: RootState) => state.noteReducer);
+
+	const {
 		activePage,
 		notes,
 		notesAvailable,
@@ -33,10 +40,6 @@ function BaseComponent(props: Props): JSX.Element {
 		pageTitle,
 		buttonAvailable,
 	} = props;
-
-	const {
-		isNoteDialogVisible,
-	} = useSelector((state: RootState) => state.noteReducer);
 
 	const thunkDispatch = useThunkDispatch();
 
@@ -68,6 +71,8 @@ function BaseComponent(props: Props): JSX.Element {
 
 	return (
 		<Fragment>
+			{!authed && <Navigate to="/auth" replace />}
+
 			<PageHeader pageTitle={pageTitle}
 				buttonLabel={buttonLabel}
 				buttonAvailable={buttonAvailable}

@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
+
 import BaseComponent from "../components/BaseComponent/BaseComponent";
 
 function HomePage(): JSX.Element {

@@ -9,4 +9,6 @@ export type InitialState = {
 	noteText: string,
 	isNoteEmpty: boolean,
 	isNoteNew: boolean,
+	authed: boolean,
+	privateKey: string,
 };

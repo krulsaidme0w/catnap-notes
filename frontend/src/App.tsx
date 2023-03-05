@@ -3,6 +3,7 @@ import { HashRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import HomePage from "./pages/Home";
 import InfoPage from "./pages/Info";
+import AuthPage from "./pages/Auth";
 
 import LeftNavbar from "./components/UIComponents/LeftNavbar/LeftNavbar";
 import PageFooter from "./components/UIComponents/PageFooter/PageFooter";
@@ -22,6 +23,7 @@ function App(): JSX.Element {
 						<Routes>
 							<Route path="/home" element={<HomePage/>}/>
 							<Route path="/info" element={<InfoPage/>}/>
+							<Route path="/auth" element={<AuthPage/>}/>
 							<Route path="*" element={<Navigate to="/home" replace={true}/>}/>
 						</Routes>
 						<PageFooter />

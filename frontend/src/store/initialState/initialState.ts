@@ -9,4 +9,6 @@ export const initialState: InitialState = {
 	noteText: "",
 	isNoteEmpty: true,
 	isNoteNew: true,
+	authed: true,
+	privateKey: "",
 };

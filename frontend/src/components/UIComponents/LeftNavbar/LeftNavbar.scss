@@ -63,3 +63,7 @@
 .focus-info::before {
 	transform: translate(-50%, 7.25rem);
 }
+
+.focus-auth::before {
+	visibility: hidden;
+}
