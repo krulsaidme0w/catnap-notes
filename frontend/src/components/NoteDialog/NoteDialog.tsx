@@ -3,11 +3,12 @@ import { useSelector } from "react-redux";
 
 import { RootState, useThunkDispatch } from "../../store/store";
 
-import { exitNoteDialog } from "../../store/action-creators/action-creators";
+import { exitNoteDialog, exitNoteDialogAndDelete } from "../../store/action-creators/action-creators";
 
 import NoteContent from "../UIComponents/NoteContent/NoteContent";
 
 import ArrowLeft from "../../assets/icons/ArrowLeft"
+import Delete from "../../assets/icons/Delete"
 
 import "./NoteDialog.scss";
 
@@ -17,10 +18,6 @@ type Props = {
 
 function NoteDialog(props: Props): JSX.Element {
 	const {
-		activePage
- 	} = props;
-
-	 const {
 		isNoteDialogVisible,
 	} = useSelector((state: RootState) => state.noteReducer);
 
@@ -29,6 +26,11 @@ function NoteDialog(props: Props): JSX.Element {
 	const closeNoteDialog = (e: React.MouseEvent) => {
 		e.preventDefault();
 		thunkDispatch(exitNoteDialog());
+	}
+
+	const deleteNote = (e: React.MouseEvent) => {
+		e.preventDefault();
+		thunkDispatch(exitNoteDialogAndDelete());
 	}
 
 	const [noteDialogClasses, setNoteDialogClasses] = useState("");
@@ -45,7 +47,7 @@ function NoteDialog(props: Props): JSX.Element {
 		<form className={`note-dialog ${noteDialogClasses}`}>
 			<div className="action-buttons">
 				<button onClick={closeNoteDialog} className="close-button"><ArrowLeft/></button>
-				<button onClick={closeNoteDialog} className="save-button"><ArrowLeft/></button>
+				<button onClick={deleteNote} className="delete_button"><Delete/></button>
 			</div>
 
 			<NoteContent />

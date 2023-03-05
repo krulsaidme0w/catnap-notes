@@ -76,23 +76,22 @@
 		font-size: 1.2rem;
 		font-weight: 600;
 
-		svg {
-			height: 2.4rem;
-		}
 	}
 
 	.close-button {
 		margin-left: -4px;
 		svg {
 			fill: #fff;
+			height: 2.4rem;
 		}
 	}
 
-	.save-button {
-		margin-right: -4px;
-		transform: rotate(-90deg);
+	.delete_button {
+		margin-left: -4px;
+		opacity: 0.7;
 		svg {
-			fill: #fff;
+			fill: red;
+			height: 1.6rem;
 		}
 	}
 }
