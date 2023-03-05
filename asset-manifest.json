@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/catnap-notes/static/css/main.1e7d4d82.css",
-    "main.js": "/catnap-notes/static/js/main.7f7c007b.js",
+    "main.css": "/catnap-notes/static/css/main.5d1b8d07.css",
+    "main.js": "/catnap-notes/static/js/main.7046290b.js",
     "static/media/SourceCodePro-Light.otf": "/catnap-notes/static/media/SourceCodePro-Light.416ad8162ec6e8a7eca2.otf",
     "index.html": "/catnap-notes/index.html",
-    "main.1e7d4d82.css.map": "/catnap-notes/static/css/main.1e7d4d82.css.map",
-    "main.7f7c007b.js.map": "/catnap-notes/static/js/main.7f7c007b.js.map"
+    "main.5d1b8d07.css.map": "/catnap-notes/static/css/main.5d1b8d07.css.map",
+    "main.7046290b.js.map": "/catnap-notes/static/js/main.7046290b.js.map"
   },
   "entrypoints": [
-    "static/css/main.1e7d4d82.css",
-    "static/js/main.7f7c007b.js"
+    "static/css/main.5d1b8d07.css",
+    "static/js/main.7046290b.js"
   ]
 }
