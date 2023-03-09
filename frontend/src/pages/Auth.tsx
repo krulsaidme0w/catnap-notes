@@ -4,7 +4,7 @@ function AuthPage(): JSX.Element {
 	return (
 		<Auth 
             buttonLabel={"_"}
-            pageTitle={"catnap auth"}
+            pageTitle={"catnap"}
             buttonAvailable={false}
         />
 	)
