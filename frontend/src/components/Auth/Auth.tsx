@@ -17,6 +17,10 @@ function Auth(props: Props): JSX.Element {
 		buttonAvailable,
 	} = props;
 
+	const register = (e: React.MouseEvent) => {
+		e.preventDefault();
+	}
+
 	return (
 		<Fragment>
 			<PageHeader pageTitle={pageTitle}
@@ -25,40 +29,33 @@ function Auth(props: Props): JSX.Element {
 			/>
 			
 			<div className={`auth-form-container`}>
-			<form className="auth-form">
-				<div className="auth-form-content">
-					<h3 className="auth-form-title">log in</h3>
-					<div className="form-group mt-3">
-						<label>private key</label>
-						<input
-						spellCheck={false}
-						className="form-control mt-1"
-						placeholder="private key"
-						/>
+				<form className="auth-form">
+					<div className="auth-form-content">
+						<h3 className="auth-form-title">welc0me back!</h3>
+						<div className="form-group">
+							<input
+							type="password"
+							spellCheck={false}
+							className="form-control"
+							placeholder="private key"
+							/>
+						</div>
+						<div className="form-group">
+							<button className={`comical-shadow-animated`}>
+								<span className={`login`}>
+									sign in
+								</span>
+							</button>
+						</div>
+						<div className="form-group">
+							<p>
+								no account? <a className="rising-background" 
+								target="_blank" rel="noreferrer" 
+								href="#" onClick={register}>sign up</a>
+							</p>
+						</div>
 					</div>
-					<div className="d-grid gap-2 mt-3">
-						<button className={`comical-shadow-animated`}>
-							<span className={`login`}>
-								login
-							</span>
-						</button>
-					</div>
-					<p>
-						
-					</p>
-				</div>
-			</form>
-
-				{/* <textarea
-					placeholder="private key"
-					spellCheck={false}
-					className="key-text">
-				</textarea>
-				<button className={`comical-shadow-animated`}>
-					<span className={`login`}>
-						login
-					</span>
-				</button> */}
+				</form>
             </div>
 		</Fragment>
 	)
