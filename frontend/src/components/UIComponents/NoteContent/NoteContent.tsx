@@ -6,7 +6,7 @@ import { noteActions, RootState } from "../../../store/store";
 import "./NoteContent.scss";
 
 function NoteContent(): JSX.Element {
-	const { noteTitle, noteText } = useSelector((state: RootState) => state.noteReducer);
+	const { noteTitle, noteText } = useSelector((state: RootState) => state.notes);
 	const dispatch = useDispatch();
 	const noteTextArea = useRef<HTMLTextAreaElement>(null);
 

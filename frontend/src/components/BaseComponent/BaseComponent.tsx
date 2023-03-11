@@ -30,7 +30,7 @@ function BaseComponent(props: Props): JSX.Element {
 	const {
 		isNoteDialogVisible,
 		authed,
-	} = useSelector((state: RootState) => state.noteReducer);
+	} = useSelector((state: RootState) => state.notes);
 
 	const {
 		activePage,

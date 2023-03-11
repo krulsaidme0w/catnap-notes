@@ -35,11 +35,11 @@ export function deleteNoteAction(id: string): AppThunk {
 
 export function exitNoteDialog(): AppThunk {
 	return (dispatch, getState) => {
-		if (getState().noteReducer.isNoteNew && !getState().noteReducer.isNoteEmpty) {
+		if (getState().notes.isNoteNew && !getState().notes.isNoteEmpty) {
 			dispatch(createNote());
-		} else if(!getState().noteReducer.isNoteNew && !getState().noteReducer.isNoteEmpty) {
+		} else if(!getState().notes.isNoteNew && !getState().notes.isNoteEmpty) {
 			dispatch(updateNoteContent());
-		} else if(!getState().noteReducer.isNoteNew && getState().noteReducer.isNoteEmpty) {
+		} else if(!getState().notes.isNoteNew && getState().notes.isNoteEmpty) {
 			dispatch(deleteCurrentNote());
 		}
 

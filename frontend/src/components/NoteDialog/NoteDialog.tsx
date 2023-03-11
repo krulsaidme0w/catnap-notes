@@ -19,7 +19,7 @@ type Props = {
 function NoteDialog(props: Props): JSX.Element {
 	const {
 		isNoteDialogVisible,
-	} = useSelector((state: RootState) => state.noteReducer);
+	} = useSelector((state: RootState) => state.notes);
 
 	const thunkDispatch = useThunkDispatch();
 

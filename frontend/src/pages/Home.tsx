@@ -4,7 +4,7 @@ import { RootState } from "../store/store";
 import BaseComponent from "../components/BaseComponent/BaseComponent";
 
 function HomePage(): JSX.Element {
-	const notes = useSelector((state: RootState) => state.noteReducer.savedNotes);
+	const notes = useSelector((state: RootState) => state.notes.savedNotes);
 
 	return (
 		<BaseComponent

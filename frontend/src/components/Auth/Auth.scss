@@ -31,22 +31,39 @@
     text-align: center;
 
     button {
-        margin-bottom: 5rem;
-        width: 80%;
-        @include respond(500px) {
-            width: 90%;
-        }
-
-        @include respond(320px) {
-            width: 90%;
-        }
-        
         span {
             width: 100%;
             left: 0rem;            
         }
     }
 
+}
+
+.login-button {
+    margin-bottom: 5rem;
+    width: 80%;
+    
+    @include respond(500px) {
+        width: 90%;
+    }
+
+    @include respond(320px) {
+        width: 90%;
+    }
+}
+
+.generate-key-button {
+    position: relative;
+    top: -3.15rem;
+    width: 20%;
+    
+    @include respond(500px) {
+        width: 25%;
+    }
+
+    @include respond(320px) {
+        width: 25%;
+    }
 }
 
 .form-control {
@@ -59,6 +76,7 @@
     resize: none;
 	color: #fff;
 	font-family: inherit;
+    opacity: 0.6;
 
     @include respond(500px) {
         width: 90%;
@@ -80,6 +98,40 @@
         background-color: transparent;
     }
 }
+
+.form-control-register {
+    margin-right: 3%;
+    width: 57%;
+    font-size: 1.6rem;
+    line-height: 1.6;
+    border: none;
+    border-bottom: 1px solid #fff;    
+    background-color: transparent;
+    resize: none;
+	color: #fff;
+	font-family: inherit;
+    opacity: 0.6;
+
+    @include respond(500px) {
+        width: 62%;
+    }
+
+    @include respond(320px) {
+        width: 62%;
+    }
+
+	&:focus {
+		outline: none;
+	}
+
+    &::placeholder {
+		color: rgba($color: #fff, $alpha: 0.6);
+	}
+
+    &::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+}
   
 label {
     font-size: 1.4rem;
@@ -87,6 +139,7 @@ label {
     color: white;
 }
 
-.login {
+.button-span {
+    background-color: green;
     width: 100%;
 }
