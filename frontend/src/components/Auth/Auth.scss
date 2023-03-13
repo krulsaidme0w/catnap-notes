@@ -100,8 +100,8 @@
 }
 
 .form-control-register {
-    margin-right: 3%;
-    width: 57%;
+    margin-right: 2%;
+    width: 58%;
     font-size: 1.6rem;
     line-height: 1.6;
     border: none;
@@ -113,11 +113,11 @@
     opacity: 0.6;
 
     @include respond(500px) {
-        width: 62%;
+        width: 63%;
     }
 
     @include respond(320px) {
-        width: 62%;
+        width: 63%;
     }
 
 	&:focus {

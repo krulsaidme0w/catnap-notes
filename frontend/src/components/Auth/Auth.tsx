@@ -32,6 +32,13 @@ function Auth(props: Props): JSX.Element {
 	}
 
 	const [registerFormValue, setRegisterFormValue] = useState("my private key");
+	const [loginFormValue, setLoginFormValue] = useState("");
+	
+
+	const syncLoginFormValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setLoginFormValue(e.target.value);
+	}
+
 	const generateKey = (e: React.MouseEvent) => {
 		e.preventDefault();
 		const now = new Date();
@@ -43,7 +50,9 @@ function Auth(props: Props): JSX.Element {
 
 	const register = (e: React.MouseEvent) => {
 		e.preventDefault();
-		
+		// to api
+		setIsLoginForm(true);
+		setLoginFormValue(registerFormValue);
 	}
 	
 	const login = (e: React.MouseEvent) => {
@@ -66,6 +75,8 @@ function Auth(props: Props): JSX.Element {
 								<input
 								type="password"
 								spellCheck={false}
+								onChange={syncLoginFormValue}
+								value={loginFormValue}
 								className="form-control"
 								placeholder="private key"
 								/>
