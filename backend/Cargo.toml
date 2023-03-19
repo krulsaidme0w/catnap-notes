@@ -7,4 +7,7 @@ edition = "2021"
 
 [dependencies]
 actix-web = "4"
+async-trait = "0.1.67"
 dotenv = "0.15.0"
+serde = "1.0.157"
+sqlx = { version = "0.6", features = ["runtime-actix-rustls", "postgres", "uuid"] }

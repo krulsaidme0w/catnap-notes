@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: "catnap"
+      POSTGRES_USER: "user"
+      POSTGRES_HOST: "localhost"
+      POSTGRES_PASSWORD: "password"
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    networks:
+      - catnap-backend
+
+networks:
+  catnap-backend:
+    name: catnap-backend
