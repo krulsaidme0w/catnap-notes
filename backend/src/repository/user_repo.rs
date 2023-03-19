@@ -7,6 +7,7 @@ use crate::model::user::User;
 #[async_trait]
 pub trait UserRepository: Send + Sync {
     async fn create(&self, new_user: &User) -> Result<User, Box<dyn Error>>;
+    async fn get(&self, user_id: &str) -> Result<User, Box<dyn Error>>;
     async fn delete(&self, user_id: &str) -> Result<(), Box<dyn Error>>;
 }
 
@@ -26,7 +27,7 @@ impl UserRepository for UserPostgresRepository {
     async fn create(&self, new_user: &User) -> Result<User, Box<dyn Error>> {
         let result = sqlx::query_as!(
             User,
-            r#"INSERT INTO catnap.user(id) values($1) returning id"#,
+            r#"INSERT INTO catnap.user(id) VALUES($1) RETURNING id"#,
             new_user.id,
         )
         .fetch_one(&self.pool)
@@ -41,6 +42,25 @@ impl UserRepository for UserPostgresRepository {
             }
         }
 
+    }
+
+    async fn get(&self, user_id: &str) -> Result<User, Box<dyn Error>> {
+        let result = sqlx::query_as!(
+            User,
+            r#"SELECT id FROM catnap.user WHERE id = $1"#,
+            user_id,
+        )
+        .fetch_one(&self.pool)
+        .await;
+
+        match result {
+            Ok(user) => {
+                Ok(user)
+            }
+            Err(err) => {
+                Err(Box::new(err))
+            }
+        }
     }
 
     async fn delete(&self, user_id: &str) -> Result<(), Box<dyn Error>> {
