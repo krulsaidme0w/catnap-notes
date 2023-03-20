@@ -1,7 +1,9 @@
+use std::sync::Arc;
+use actix_web::{App, middleware::Logger, web};
 use dotenv::dotenv;
 use sqlx::postgres::PgPoolOptions;
 
-use backend::{repository::user_repo::{UserPostgresRepository, UserRepository}, model::user::User};
+use backend::{repository::user_repo::{UserPostgresRepository}, service::user_service::UserService, handler::auth::{register, login}};
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -16,11 +18,20 @@ async fn main() -> std::io::Result<()> {
 
     sqlx::migrate!().run(&pool).await.unwrap();
 
-    let user_repo = UserPostgresRepository::new(pool);
-    let user = user_repo.create(&User{id: "asd".to_string()}).await.unwrap();
-    user_repo.delete("asd").await.unwrap();
+    let user_repo = Arc::new(
+        UserPostgresRepository::new(pool)
+    );
 
-    dbg!(user);
+    let user_service = Arc::new(
+        UserService::new(user_repo)
+    );
 
-    Ok(())
+    App::new()
+        .app_data(web::Data::from(user_service))
+        .wrap(Logger::default())
+        .service(
+            web::scope("/auth")
+                .route("/register", web::post().to(register))
+                .route("/login", web::post().to(login))
+        )
 }
