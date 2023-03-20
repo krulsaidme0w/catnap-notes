@@ -10,12 +10,15 @@ use std::sync::Arc;
 
 use backend::{
     handler::auth::{login, register},
-    repository::user_repo::UserPostgresRepository,
-    service::user_service::UserService,
+    repository::user_repo::{UserPostgresRepository, UserRepository},
+    service::user_service::{UserService, UserServiceTrait},
 };
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    std::env::set_var("RUST_LOG", "debug");
+    env_logger::init();
+
     dotenv().ok();
 
     let ip = std::env::var("IP").unwrap();
@@ -30,9 +33,9 @@ async fn main() -> std::io::Result<()> {
 
     sqlx::migrate!().run(&pool).await.unwrap();
 
-    let user_repo = Arc::new(UserPostgresRepository::new(pool));
+    let user_repo: Arc<dyn UserRepository> = Arc::new(UserPostgresRepository::new(pool));
 
-    let user_service = Arc::new(UserService::new(user_repo));
+    let user_service: Arc<dyn UserServiceTrait> = Arc::new(UserService::new(user_repo));
 
     let server = HttpServer::new(move || create_app(user_service.clone())).bind((ip, port))?;
 
@@ -40,7 +43,7 @@ async fn main() -> std::io::Result<()> {
 }
 
 pub fn create_app(
-    user_service: Arc<UserService>,
+    user_service: Arc<dyn UserServiceTrait>,
 ) -> App<
     impl ServiceFactory<
         ServiceRequest,
@@ -49,9 +52,9 @@ pub fn create_app(
         InitError = (),
         Error = Error,
     >,
-> {
+> {     
     App::new()
-        .app_data(web::Data::from(user_service))
+        .app_data(web::Data::from(user_service.clone()))
         .wrap(Logger::default())
         .service(
             web::scope("/auth")
