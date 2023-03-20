@@ -1,17 +1,22 @@
-use actix_web::web;
+use actix_web::{web, HttpResponse, Result};
 
-use crate::{service::user_service::{UserServiceTrait}, model::{user::User, error::ApiError}};
+use crate::{
+    model::{error::ApiError, user::User},
+    service::user_service::UserServiceTrait,
+};
 
 pub async fn register(
-    user_service: web::Data<dyn UserServiceTrait>, post_data: web::Json<User>,
-) -> Result<(), ApiError> {
+    user_service: web::Data<dyn UserServiceTrait>,
+    post_data: web::Json<User>,
+) -> Result<HttpResponse, ApiError> {
     user_service.register(post_data.into_inner().into()).await?;
-    Ok(())
+    Ok(HttpResponse::NoContent().finish())
 }
 
 pub async fn login(
-    user_service: web::Data<dyn UserServiceTrait>, post_data: web::Json<&str>,
-) -> Result<(), ApiError> {
-    user_service.login(post_data.into_inner()).await?;
-    Ok(())
+    user_service: web::Data<dyn UserServiceTrait>,
+    post_data: web::Json<User>,
+) -> Result<HttpResponse, ApiError> {
+    user_service.login(&post_data.0.id).await?;
+    Ok(HttpResponse::NoContent().finish())
 }

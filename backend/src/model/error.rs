@@ -49,6 +49,8 @@ impl Into<CommonError> for RepositoryError {
 
 impl From<sqlx::Error> for RepositoryError {
     fn from(error: sqlx::Error) -> Self {
-        RepositoryError { message: error.to_string() }
+        RepositoryError {
+            message: error.to_string(),
+        }
     }
 }
