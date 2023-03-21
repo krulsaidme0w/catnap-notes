@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { Fragment } from "react";
+import { useDispatch } from "react-redux";
 
 import PageHeader from "../UIComponents/PageHeader/PageHeader";
 
 import sha256 from "../../utils/crypto";
 
 import "./Auth.scss";
+import { loginUser, registerUser } from "../../api/api";
+import { userActions } from "../../store/store";
 
 type Props = {
 	buttonLabel: string
@@ -19,6 +22,8 @@ function Auth(props: Props): JSX.Element {
 		pageTitle,
 		buttonAvailable,
 	} = props;
+
+	const dispatch = useDispatch();
 
 	const [isLoginForm, setIsLoginForm] = useState(true);
 	const switchToRegisterForm = (e: React.MouseEvent) => {
@@ -48,15 +53,26 @@ function Auth(props: Props): JSX.Element {
 		navigator.clipboard.writeText(privateKey);
 	}
 
-	const register = (e: React.MouseEvent) => {
+	const register = async (e: React.MouseEvent) => {
 		e.preventDefault();
-		// to api
-		setIsLoginForm(true);
-		setLoginFormValue(registerFormValue);
+		try {
+			await registerUser(sha256(sha256(registerFormValue)));
+			setIsLoginForm(true);
+			setLoginFormValue(registerFormValue);
+		} catch (error) {
+			console.error(error);
+			
+		}
 	}
 	
-	const login = (e: React.MouseEvent) => {
+	const login = async (e: React.MouseEvent) => {
 		e.preventDefault();
+		try {
+			await loginUser(sha256(sha256(loginFormValue)));
+			dispatch(userActions.login(loginFormValue));
+		} catch (error) {
+			console.error(error);
+		}
 	}
 	
 	return (
