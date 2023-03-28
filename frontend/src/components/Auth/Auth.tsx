@@ -38,6 +38,7 @@ function Auth(props: Props): JSX.Element {
 
 	const [registerFormValue, setRegisterFormValue] = useState("my private key");
 	const [loginFormValue, setLoginFormValue] = useState("");
+	const [reqError, setReqError] = useState("");
 	
 
 	const syncLoginFormValue = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,9 +60,10 @@ function Auth(props: Props): JSX.Element {
 			await registerUser(sha256(sha256(registerFormValue)));
 			setIsLoginForm(true);
 			setLoginFormValue(registerFormValue);
+			setReqError("")
 		} catch (error) {
 			console.error(error);
-			
+			setReqError("auth-error")
 		}
 	}
 	
@@ -70,8 +72,10 @@ function Auth(props: Props): JSX.Element {
 		try {
 			await loginUser(sha256(sha256(loginFormValue)));
 			dispatch(userActions.login(loginFormValue));
+			setReqError("")
 		} catch (error) {
 			console.error(error);
+			setReqError("auth-error")
 		}
 	}
 	
@@ -128,7 +132,7 @@ function Auth(props: Props): JSX.Element {
 								spellCheck={false}
 								value={registerFormValue}
 								readOnly={true}
-								className="form-control-register"
+								className={`form-control-register ${reqError}`}
 								placeholder="generate your key"
 								/>
 								<button onClick={generateKey} className={`comical-shadow-animated generate-key-button`}>
