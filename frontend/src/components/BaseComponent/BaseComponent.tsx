@@ -30,7 +30,7 @@ function BaseComponent(props: Props): JSX.Element {
 	const {
 		isNoteDialogVisible,
 		authed,
-	} = useSelector((state: RootState) => state.notes);
+	} = useSelector((state: RootState) => state.user);
 
 	const {
 		activePage,
@@ -71,7 +71,7 @@ function BaseComponent(props: Props): JSX.Element {
 
 	return (
 		<Fragment>
-			{!authed && <Navigate to="/auth" replace />}
+			{!authed && <Navigate to="/auth" replace={true}/>}
 
 			<PageHeader pageTitle={pageTitle}
 				buttonLabel={buttonLabel}

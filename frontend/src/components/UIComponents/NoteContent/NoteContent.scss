@@ -1,6 +1,8 @@
 @import "../../../sass/mixins/mixins.scss";
+@import "../../../sass/utility-classes/utility-classes.scss";
 
 .note-content {
+	background-color: #000;
 	.note-images {
 		margin-bottom: 2rem;
 		
@@ -54,10 +56,12 @@
 
 		.note-title {
 			font-size: 2rem;
+			background-color: #000;
 		}
 
 		.note-text {
 			font-size: 1.6rem;
+			background-color: #000;
 			line-height: 1.6;
 			height: 30rem;
 			scrollbar-color: #7a7a7a transparent;

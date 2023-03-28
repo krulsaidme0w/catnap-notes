@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { Fragment } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
+import { RootState, userActions } from "../../store/store";
 
 import PageHeader from "../UIComponents/PageHeader/PageHeader";
-
 import sha256 from "../../utils/crypto";
-
-import "./Auth.scss";
 import { loginUser, registerUser } from "../../api/api";
-import { userActions } from "../../store/store";
+import "./Auth.scss";
 
 type Props = {
 	buttonLabel: string
@@ -23,16 +22,20 @@ function Auth(props: Props): JSX.Element {
 		buttonAvailable,
 	} = props;
 
+	const authed = useSelector((state: RootState) => state.user).authed;
+
 	const dispatch = useDispatch();
 
 	const [isLoginForm, setIsLoginForm] = useState(true);
 	const switchToRegisterForm = (e: React.MouseEvent) => {
 		e.preventDefault();
+		setReqError("")
 		setIsLoginForm(false);
 	}
 
 	const switchToLoginForm = (e: React.MouseEvent) => {
 		e.preventDefault();
+		setReqError("")
 		setIsLoginForm(true);
 	}
 
@@ -40,7 +43,6 @@ function Auth(props: Props): JSX.Element {
 	const [loginFormValue, setLoginFormValue] = useState("");
 	const [reqError, setReqError] = useState("");
 	
-
 	const syncLoginFormValue = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setLoginFormValue(e.target.value);
 	}
@@ -81,6 +83,8 @@ function Auth(props: Props): JSX.Element {
 	
 	return (
 		<Fragment>
+			{authed && <Navigate to="/home" replace={true}/>}
+
 			<PageHeader pageTitle={pageTitle}
 				buttonLabel={buttonLabel}
 				buttonAvailable={buttonAvailable}
