@@ -1,3 +1,4 @@
+use actix_cors::Cors;
 use actix_web::{
     body::MessageBody,
     dev::{ServiceFactory, ServiceRequest, ServiceResponse},
@@ -52,10 +53,11 @@ pub fn create_app(
         InitError = (),
         Error = Error,
     >,
-> {     
+> {
     App::new()
-        .app_data(web::Data::from(user_service.clone()))
+        .wrap(Cors::permissive())
         .wrap(Logger::default())
+        .app_data(web::Data::from(user_service.clone()))
         .service(
             web::scope("/auth")
                 .route("/register", web::post().to(register))

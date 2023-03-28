@@ -1,4 +1,4 @@
-use actix_web::{web, HttpResponse, Result};
+use actix_web::{http::header, web, HttpResponse, Result};
 
 use crate::{
     model::{error::ApiError, user::User},
@@ -10,7 +10,10 @@ pub async fn register(
     post_data: web::Json<User>,
 ) -> Result<HttpResponse, ApiError> {
     user_service.register(post_data.into_inner().into()).await?;
-    Ok(HttpResponse::NoContent().finish())
+
+    Ok(HttpResponse::Ok()
+        .append_header((header::ACCESS_CONTROL_ALLOW_ORIGIN, "*"))
+        .finish())
 }
 
 pub async fn login(
@@ -18,5 +21,7 @@ pub async fn login(
     post_data: web::Json<User>,
 ) -> Result<HttpResponse, ApiError> {
     user_service.login(&post_data.0.id).await?;
-    Ok(HttpResponse::NoContent().finish())
+    Ok(HttpResponse::Ok()
+        .append_header((header::ACCESS_CONTROL_ALLOW_ORIGIN, "*"))
+        .finish())
 }
