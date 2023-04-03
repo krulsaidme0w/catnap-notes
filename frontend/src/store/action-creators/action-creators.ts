@@ -2,6 +2,7 @@ import { AnyAction, ThunkAction } from "@reduxjs/toolkit";
 import { RootState, noteActions } from "../store";
 
 import { Note } from "../../types/note";
+import { addNote, delNote, getAllNotes, updateNote } from "../../api/api";
 
 type AppThunk<ReturnType = void> = ThunkAction<
 	ReturnType,
@@ -12,6 +13,7 @@ type AppThunk<ReturnType = void> = ThunkAction<
 
 const {
 	createNote,
+	setSavedNotes,
 	deleteCurrentNote,
 	editNoteContent,
 	updateNoteContent,
@@ -21,26 +23,49 @@ const {
 	noteIsNew,
 } = noteActions;
 
-export function createNoteAction(): AppThunk {
-	return (dispatch) => {
-		dispatch(createNote())
-	}
-}
-
 export function deleteNoteAction(id: string): AppThunk {
-	return (dispatch) => {
-		dispatch(deleteNote(id));
+	return async (dispatch) => {
+		try {
+			delNote(id);
+			dispatch(deleteNote(id));
+		} catch (error) {
+			console.error(error);
+		}
 	}
 }
 
 export function exitNoteDialog(): AppThunk {
-	return (dispatch, getState) => {
+	return async (dispatch, getState) => {
 		if (getState().notes.isNoteNew && !getState().notes.isNoteEmpty) {
-			dispatch(createNote());
+			try {
+				const note = {
+					"title": getState().notes.noteTitle,
+					"content": getState().notes.noteText,
+				}
+				const response = await addNote(note)
+				dispatch(createNote(response));
+			} catch (error) {
+				console.error(error);
+			}
 		} else if(!getState().notes.isNoteNew && !getState().notes.isNoteEmpty) {
-			dispatch(updateNoteContent());
+			try {
+				const note = {
+					"id": getState().notes.noteId,
+					"title": getState().notes.noteTitle,
+					"content": getState().notes.noteText,
+				}
+				const response = await updateNote(note)
+				dispatch(updateNoteContent(response));
+			} catch (error) {
+				console.error(error);
+			}
 		} else if(!getState().notes.isNoteNew && getState().notes.isNoteEmpty) {
-			dispatch(deleteCurrentNote());
+			try {
+				delNote(getState().notes.noteId);
+				dispatch(deleteCurrentNote(getState().notes.noteId));
+			} catch (error) {
+				console.error(error);
+			}
 		}
 
 		dispatch(resetNoteContent());
@@ -49,8 +74,13 @@ export function exitNoteDialog(): AppThunk {
 }
 
 export function exitNoteDialogAndDelete(): AppThunk {
-	return (dispatch) => {
-		dispatch(deleteCurrentNote());
+	return (dispatch, getState) => {
+		try {
+			delNote(getState().notes.noteId);
+			dispatch(deleteCurrentNote(getState().notes.noteId));
+		} catch (error) {
+			console.error(error);
+		}
 		dispatch(resetNoteContent());
 		dispatch(noteDialogIsVisible(false));
 	}
@@ -61,5 +91,16 @@ export function editNote(noteContent: Note): AppThunk {
 		dispatch(editNoteContent(noteContent));
 		dispatch(noteDialogIsVisible(true));
 		dispatch(noteIsNew(false));
+	}
+}
+
+export function fetchInitData(): AppThunk {
+	return async (dispatch) => {
+		try {
+			const notes = await getAllNotes();
+			dispatch(setSavedNotes(notes));
+		} catch (error) {
+			console.error(error);
+		}
 	}
 }

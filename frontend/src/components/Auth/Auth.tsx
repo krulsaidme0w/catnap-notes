@@ -101,7 +101,7 @@ function Auth(props: Props): JSX.Element {
 								spellCheck={false}
 								onChange={syncLoginFormValue}
 								value={loginFormValue}
-								className="form-control"
+								className={`form-control ${reqError}`}
 								placeholder="private key"
 								/>
 							</div>

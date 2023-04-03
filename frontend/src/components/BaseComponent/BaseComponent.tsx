@@ -1,12 +1,12 @@
 import { Fragment, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from 'react-router-dom';
 
-import { useThunkDispatch } from "../../store/store";
+import { useThunkDispatch, userActions } from "../../store/store";
 
 import { RootState } from "../../store/store";
 
-import { exitNoteDialog } from "../../store/action-creators/action-creators";
+import { exitNoteDialog, fetchInitData } from "../../store/action-creators/action-creators";
 
 import PageHeader from "../UIComponents/PageHeader/PageHeader";
 import SavedNote from "../SavedNote/SavedNote";
@@ -15,6 +15,7 @@ import NoteDialog from "../NoteDialog/NoteDialog";
 import { Note } from "../../types/note";
 
 import "./BaseComponent.scss";
+import { loginUser } from "../../api/api";
 
 
 type Props = {
@@ -27,10 +28,9 @@ type Props = {
 };
 
 function BaseComponent(props: Props): JSX.Element {
-	const {
-		isNoteDialogVisible,
-		authed,
-	} = useSelector((state: RootState) => state.user);
+	const authed = useSelector((state: RootState) => state.user).authed;
+	const isNoteDialogVisible = useSelector((state: RootState) => state.notes).isNoteDialogVisible;
+
 
 	const {
 		activePage,
@@ -42,12 +42,15 @@ function BaseComponent(props: Props): JSX.Element {
 	} = props;
 
 	const thunkDispatch = useThunkDispatch();
-
+	const dispatch = useDispatch();
+	
 	const noNotesInfo = "no notes"
 	const maxNoteTitleLength = 12
 
 	const [overlayClasses, setOverlayClasses] = useState("");
 	const [blurOverlayClasses, setBlurOverlayClasses] = useState("");
+	const [authedChecked, setAuthedChecked] = useState(false);
+	const [dataIsFetched, setDataIsFetched] = useState(false);
 
 	const closeNoteDialog = () => {
 		thunkDispatch(exitNoteDialog());
@@ -68,6 +71,20 @@ function BaseComponent(props: Props): JSX.Element {
 			setBlurOverlayClasses("");
 		}
 	}, [isNoteDialogVisible]);
+
+	if (!authedChecked) {
+		setAuthedChecked(true);
+		const authToken = localStorage.getItem('authToken');
+		if (authToken != null) {
+			loginUser(authToken);
+			dispatch(userActions.login(authToken));
+		}
+	}
+
+	if (!dataIsFetched) {
+		setDataIsFetched(true);
+		thunkDispatch(fetchInitData());
+	}
 
 	return (
 		<Fragment>

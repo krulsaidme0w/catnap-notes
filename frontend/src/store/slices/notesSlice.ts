@@ -6,13 +6,8 @@ export const noteStateSlice = createSlice({
 	name: "Notes",
 	initialState: initialState,
 	reducers: {
-        createNote(state) {
-			const newNote: Note = {
-				id: new Date().toISOString(),
-				title: state.noteTitle,
-				text: state.noteText,
-			};
-            state.savedNotes.unshift(newNote);
+        createNote(state, action: PayloadAction<Note>) {
+            state.savedNotes.unshift(action.payload);
 		},
 		editNoteContent(state, action: PayloadAction<Note>) {
 			const {id, title, text} = action.payload;
@@ -23,14 +18,14 @@ export const noteStateSlice = createSlice({
 		deleteNote(state, action: PayloadAction<string>) {
 			state.savedNotes = state.savedNotes.filter((note) => note.id !== action.payload);
 		},
-		deleteCurrentNote(state) {
-			state.savedNotes = state.savedNotes.filter((note) => note.id !== state.noteId);
+		deleteCurrentNote(state, action: PayloadAction<string>) {
+			state.savedNotes = state.savedNotes.filter((note) => note.id !== action.payload);
 		},
-		updateNoteContent(state) {
-			const noteToUpdate = state.savedNotes.find((note) => note.id === state.noteId)!;
+		updateNoteContent(state, action: PayloadAction<Note>) {
+			const noteToUpdate = state.savedNotes.find((note) => note.id === action.payload.id)!;
 			Object.assign(noteToUpdate, {
-				title: state.noteTitle.trim(),
-				text: state.noteText,
+				title: action.payload.title.trim(),
+				text: action.payload.text,
 			});
 		},
 		noteDialogIsVisible(state, action: PayloadAction<boolean>) {
@@ -52,6 +47,9 @@ export const noteStateSlice = createSlice({
 		},
 		noteIsNew(state, action: PayloadAction<boolean>) {
 			state.isNoteNew = action.payload;
+		},
+		setSavedNotes(state, action: PayloadAction<Array<Note>>) {
+			state.savedNotes = action.payload;
 		},
     }
 })

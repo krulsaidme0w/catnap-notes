@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 
 import { noteStateSlice } from "./slices/notesSlice";
 import { userStateSlice } from "./slices/userSlice";
+import { fetchInitData } from "./action-creators/action-creators";
 
 
 const rootReducer = {
