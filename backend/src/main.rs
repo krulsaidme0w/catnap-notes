@@ -10,9 +10,12 @@ use sqlx::postgres::PgPoolOptions;
 use std::sync::Arc;
 
 use backend::{
-    handler::auth::{login, register},
-    repository::user_repo::{UserPostgresRepository, UserRepository},
-    service::user_service::{UserService, UserServiceTrait},
+    handler::{auth::{login, register}, note::{add_note, update_note, delete_note, get_notes}},
+    repository::{
+        note_repo::{NotePostgresRepository, NoteRepository},
+        user_repo::{UserPostgresRepository, UserRepository},
+    },
+    service::{user_service::{UserService, UserServiceTrait}, note_service::{NoteServiceTrait, NoteService}},
 };
 
 #[actix_web::main]
@@ -34,17 +37,20 @@ async fn main() -> std::io::Result<()> {
 
     sqlx::migrate!().run(&pool).await.unwrap();
 
-    let user_repo: Arc<dyn UserRepository> = Arc::new(UserPostgresRepository::new(pool));
+    let user_repo: Arc<dyn UserRepository> = Arc::new(UserPostgresRepository::new(pool.clone()));
+    let note_repo: Arc<dyn NoteRepository> = Arc::new(NotePostgresRepository::new(pool));
 
     let user_service: Arc<dyn UserServiceTrait> = Arc::new(UserService::new(user_repo));
+    let note_service: Arc<dyn NoteServiceTrait> = Arc::new(NoteService::new(note_repo));
 
-    let server = HttpServer::new(move || create_app(user_service.clone())).bind((ip, port))?;
+    let server = HttpServer::new(move || create_app(user_service.clone(), note_service.clone())).bind((ip, port))?;
 
     server.run().await
 }
 
 pub fn create_app(
     user_service: Arc<dyn UserServiceTrait>,
+    note_service: Arc<dyn NoteServiceTrait>,
 ) -> App<
     impl ServiceFactory<
         ServiceRequest,
@@ -58,9 +64,17 @@ pub fn create_app(
         .wrap(Cors::permissive())
         .wrap(Logger::default())
         .app_data(web::Data::from(user_service.clone()))
+        .app_data(web::Data::from(note_service.clone()))
         .service(
             web::scope("/auth")
                 .route("/register", web::post().to(register))
                 .route("/login", web::post().to(login)),
+        )
+        .service(
+            web::scope("/note")
+                .route("/add", web::post().to(add_note))
+                .route("/update", web::post().to(update_note))
+                .route("/delete", web::delete().to(delete_note))
+                .route("/get_all", web::get().to(get_notes)), 
         )
 }
