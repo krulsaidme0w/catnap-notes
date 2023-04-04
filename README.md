@@ -7,8 +7,8 @@
 
 ### login/register pages
 <p align="middle">
-  <img src='https://github.com/krulsaidme0w/catnap-notes/blob/dev/frontend/src/assets/images/login.png?raw=true' width='500'>
-  <img src='https://github.com/krulsaidme0w/catnap-notes/blob/dev/frontend/src/assets/images/register.png?raw=true' width='500'>
+  <img src='https://github.com/krulsaidme0w/catnap-notes/blob/dev/frontend/src/assets/images/login.png?raw=true' width='400'>
+  <img src='https://github.com/krulsaidme0w/catnap-notes/blob/dev/frontend/src/assets/images/register.png?raw=true' width='400'>
 </p>
 
 ### edit note
