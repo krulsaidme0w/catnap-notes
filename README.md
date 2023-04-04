@@ -31,3 +31,14 @@
 - actix web
 - sqlx
 - psql
+
+## how to run
+- `git clone ...` the respository
+- `cd backend/` - to backend
+- `docker compose -f docker-compose.yml up -d` - run postgres in docker container
+- `cargo run` - start backend server
+- `cd frontend/` - to frontend
+- `npm install` - install project dependencies
+- `npm start` - start frontend server
+
+> didnt care about envs in frontend, change api addr by hands in api.tsx file :)
