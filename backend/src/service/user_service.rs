@@ -30,6 +30,13 @@ impl UserServiceTrait for UserService {
     }
 
     async fn register(&self, user: User) -> Result<(), CommonError> {
+        if user.id.len() != 64 {
+            return Err(CommonError {
+                message: "Bad private key length".to_owned(),
+                code: 400,
+            });
+        };
+
         self.repo.create(&user).await.map_err(|err| err.into())?;
         Ok(())
     }
