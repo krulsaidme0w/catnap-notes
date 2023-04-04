@@ -45,7 +45,7 @@ function BaseComponent(props: Props): JSX.Element {
 	const dispatch = useDispatch();
 	
 	const noNotesInfo = "no notes"
-	const maxNoteTitleLength = 12
+	const maxNoteTitleLength = 30
 
 	const [overlayClasses, setOverlayClasses] = useState("");
 	const [blurOverlayClasses, setBlurOverlayClasses] = useState("");
