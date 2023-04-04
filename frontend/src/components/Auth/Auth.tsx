@@ -5,9 +5,9 @@ import { Navigate } from "react-router-dom";
 import { RootState, userActions } from "../../store/store";
 
 import PageHeader from "../UIComponents/PageHeader/PageHeader";
-import sha256 from "../../utils/crypto";
 import { loginUser, registerUser } from "../../api/api";
 import "./Auth.scss";
+import { sha256 } from "../../utils/crypto";
 
 type Props = {
 	buttonLabel: string

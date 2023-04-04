@@ -1,7 +1,13 @@
-import { SHA256, enc } from "crypto-js";
+import { SHA256, AES, enc } from 'crypto-js';
 
-function sha256(input: string): string {
+export const sha256 = (input: string): string => {
     return SHA256(input + "soup").toString(enc.Hex);
 }
 
-export default sha256;
+export const aesEncrypt = (input: string, key: string): string => {
+    return AES.encrypt(input, key).toString();
+}
+
+export const aesDecrypt = (input: string, key: string): string => {
+    return AES.decrypt(input, key).toString(enc.Utf8);
+}

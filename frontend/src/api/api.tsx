@@ -1,4 +1,5 @@
 import { Note } from "../types/note";
+import { aesDecrypt, aesEncrypt, sha256 } from "../utils/crypto";
 
 
 export const registerUser = async (privateKey: string) => {
@@ -48,8 +49,8 @@ export const addNote = async (note: AddNoteReq): Promise<Note> => {
       'Authorization': token,
     },
     body: JSON.stringify({ 
-      'title': note.title,
-      'content': note.content,
+      'title': aesEncrypt(note.title, sha256(token)),
+      'content': aesEncrypt(note.content, sha256(token)),
     }),
   });
   if (!response.ok) {
@@ -59,8 +60,8 @@ export const addNote = async (note: AddNoteReq): Promise<Note> => {
   const jsonNote = await response.json();
   const parsedNote: Note = {
     id: jsonNote.id,
-    title: jsonNote.title,
-    text: jsonNote.content
+    title: aesDecrypt(jsonNote.title, sha256(token)),
+    text: aesDecrypt(jsonNote.content, sha256(token)),
   };
 
   return parsedNote;
@@ -86,8 +87,8 @@ export const updateNote = async (note: UpdateNoteReq): Promise<Note> => {
     },
     body: JSON.stringify({
       'id': note.id,
-      'title': note.title,
-      'content': note.content,
+      'title': aesEncrypt(note.title, sha256(token)),
+      'content': aesEncrypt(note.content, sha256(token)),
     }),
   });
   if (!response.ok) {
@@ -97,8 +98,8 @@ export const updateNote = async (note: UpdateNoteReq): Promise<Note> => {
   const jsonNote = await response.json();
   const parsedNote: Note = {
     id: jsonNote.id,
-    title: jsonNote.title,
-    text: jsonNote.content
+    title: aesDecrypt(jsonNote.title, sha256(token)),
+    text: aesDecrypt(jsonNote.content, sha256(token)),
   };
   
   return parsedNote;
@@ -145,8 +146,8 @@ export const getAllNotes = async () => {
   const jsonNotes = await response.json();
   const parsedNotes: Note[] = jsonNotes.map((jsonNote: any) => ({
     id: jsonNote.id,
-    title: jsonNote.title,
-    text: jsonNote.content
+    title: aesDecrypt(jsonNote.title, sha256(token)),
+    text: aesDecrypt(jsonNote.content, sha256(token)),
   }));
 
   return parsedNotes;
