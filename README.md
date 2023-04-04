@@ -16,3 +16,4 @@
 ## backend made using
 - actix web
 - sqlx
+- psql
