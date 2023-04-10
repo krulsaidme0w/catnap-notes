@@ -33,12 +33,13 @@
 - psql
 
 ## how to run
-- `git clone ...` the respository
-- `cd backend/` - to backend
-- `docker compose -f docker-compose.yml up -d` - run postgres in docker container
-- `cargo run` - start backend server
-- `cd frontend/` - to frontend
-- `npm install` - install project dependencies
-- `npm start` - start frontend server
+- `docker compose -f docker-compose.yml up -d` - run everything (check localhost:3000)
 
-> didnt care about envs in frontend, change api addr by hands in api.tsx file :)
+## todo
+- [ ] sessions timeout (now they are infinite)
+- [ ] check session user exists on page loaded
+- [ ] fill info page
+- [ ] better info about private key on sign up page (users shouldn't lose their keys)
+- [ ] k8 deployment
+- [ ] add nginx proxy (nah)
+- [ ] add captcha on sign up (nah)

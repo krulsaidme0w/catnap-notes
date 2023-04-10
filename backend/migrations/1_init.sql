@@ -11,5 +11,5 @@ CREATE TABLE IF NOT EXISTS catnap.note (
     user_id TEXT NOT NULL,
     title TEXT NOT NULL,
     content TEXT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES catnap.user(id)
+    FOREIGN KEY (user_id) REFERENCES catnap.user(id) ON DELETE CASCADE
 );

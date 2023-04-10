@@ -6,7 +6,7 @@ use actix_web::{
     web, App, Error, HttpServer,
 };
 use dotenv::dotenv;
-use sqlx::postgres::PgPoolOptions;
+use sqlx::{postgres::PgPoolOptions};
 use std::sync::Arc;
 
 use backend::{
@@ -34,6 +34,10 @@ async fn main() -> std::io::Result<()> {
         .connect(&database_url)
         .await
         .unwrap();
+
+    sqlx::migrate!()
+        .run(&pool)
+        .await.unwrap();
 
     sqlx::migrate!().run(&pool).await.unwrap();
 

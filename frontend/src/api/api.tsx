@@ -4,7 +4,7 @@ import { aesDecrypt, aesEncrypt, sha256 } from "../utils/crypto";
 
 export const registerUser = async (privateKey: string) => {
   console.log(process.env.BASE_URL);
-  const response = await fetch(`http://localhost:8080/auth/register`, {
+  const response = await fetch(process.env.REACT_APP_API_URL + `/auth/register`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -17,7 +17,7 @@ export const registerUser = async (privateKey: string) => {
 };
 
 export const loginUser = async (privateKey: string) => {
-  const response = await fetch(`http://localhost:8080/auth/login`, {
+  const response = await fetch(process.env.REACT_APP_API_URL + `/auth/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ export const addNote = async (note: AddNoteReq): Promise<Note> => {
     throw new Error('Bad auth token');
   }
 
-  const response = await fetch(`http://localhost:8080/note/add`, {
+  const response = await fetch(process.env.REACT_APP_API_URL + `/note/add`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -79,7 +79,7 @@ export const updateNote = async (note: UpdateNoteReq): Promise<Note> => {
     throw new Error('Bad auth token');
   }
 
-  const response = await fetch(`http://localhost:8080/note/update`, {
+  const response = await fetch(process.env.REACT_APP_API_URL + `/note/update`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -111,7 +111,7 @@ export const delNote = async (id: String) => {
     throw new Error('Bad auth token');
   }
 
-  const response = await fetch(`http://localhost:8080/note/delete`, {
+  const response = await fetch(process.env.REACT_APP_API_URL + `/note/delete`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -132,7 +132,7 @@ export const getAllNotes = async () => {
     throw new Error('Bad auth token');
   }
 
-  const response = await fetch(`http://localhost:8080/note/get_all`, {
+  const response = await fetch(process.env.REACT_APP_API_URL + `/note/get_all`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

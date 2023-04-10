@@ -1,0 +1,44 @@
+version: "3.9"
+
+services:
+  frontend:
+    build: ./frontend
+    depends_on:
+      - backend
+      - postgres
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    networks:
+      - catnap-frontend
+    
+  backend:
+    build: ./backend
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    networks:
+      - catnap-backend
+      - catnap-frontend
+
+  postgres:
+    image: postgres:15.2
+    environment:
+      POSTGRES_DB: "catnap"
+      POSTGRES_USER: "user"
+      POSTGRES_HOST: "localhost"
+      POSTGRES_PASSWORD: "password"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - catnap-backend
+
+networks:
+  catnap-backend:
+    name: catnap-backend
+  catnap-frontend:
+    name: catnap-frontend
