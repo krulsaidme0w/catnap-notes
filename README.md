@@ -43,3 +43,5 @@
 - [ ] k8 deployment
 - [ ] add nginx proxy (nah)
 - [ ] add captcha on sign up (nah)
+- [ ] better logout (use button, not icon)
+- [ ] better note saving (add save button / change current back icon)
